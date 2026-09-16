@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Taller Digital — Tareas de Tecnología y Artística</title>
+<style>
+  :root{
+    --paper:#ECEFEA;
+    --paper-alt:#F7F8F4;
+    --ink:#23292B;
+    --ink-soft:#5B645F;
+    --line:#D6D9CE;
+    --tec:#1F6F78;
+    --tec-soft:#E4F0EF;
+    --tec-grad:linear-gradient(135deg,#18C4B8 0%,#1F6F78 55%,#0E3B41 100%);
+    --art:#C98A2C;
+    --art-soft:#FBF0DD;
+    --art-grad:linear-gradient(135deg,#F7C948 0%,#C98A2C 55%,#8A4B14 100%);
+    --alert:#B8503D;
+    --alert-soft:#F7E7E2;
+    --ok:#3E7C4A;
+    --ok-soft:#E6F0E5;
+    --g9:#6C5CE7;
+    --g9-soft:#EDEBFC;
+    --g10:#0984E3;
+    --g10-soft:#E3F1FC;
+    --g11:#E1670E;
+    --g11-soft:#FCEADB;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Segoe UI","Iowan Old Style",-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.45;
+    padding-bottom:60px;
+  }
+  h1,h2,h3{
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-weight:600;
+    margin:0 0 6px 0;
+    letter-spacing:0.2px;
+  }
+  h1{font-size:1.3rem;}
+  h2{font-size:1.1rem;}
+  h3{font-size:1rem;}
+  p{margin:0 0 10px 0;}
+  small{color:var(--ink-soft);}
+
+  header.top{
+    background:var(--ink);
+    color:var(--paper-alt);
+    padding:16px 16px 0 16px;
+  }
+  header.top .brand{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  header.top .brand h1{color:#fff; margin:0;}
+  header.top .brand span{color:#B7BEB6; font-size:0.75rem;}
+
+  .role-tabs{display:flex; gap:2px;}
+  .role-tab{
+    flex:1;
+    text-align:center;
+    padding:10px 6px;
+    background:#33393B;
+    color:#C7CEC7;
+    border:none;
+    font-size:0.92rem;
+    cursor:pointer;
+    border-radius:6px 6px 0 0;
+  }
+  .role-tab.active{background:var(--paper); color:var(--ink); font-weight:600;}
+
+  nav.subnav{
+    display:flex;
+    overflow-x:auto;
+    gap:6px;
+    padding:10px 12px;
+    background:var(--paper-alt);
+    border-bottom:1px solid var(--line);
+  }
+  nav.subnav button{
+    flex:0 0 auto;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    padding:7px 12px;
+    border-radius:16px;
+    font-size:0.85rem;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  nav.subnav button.active{
+    background:var(--ink);
+    color:#fff;
+    border-color:var(--ink);
+  }
+
+  main{padding:14px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:4px solid var(--ink-soft);
+    border-radius:var(--radius);
+    padding:14px;
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  .card.tec{border-left-color:var(--tec);}
+  .card.art{border-left-color:var(--art);}
+
+  .subject-banner{
+    margin:-14px -14px 12px -14px;
+    padding:12px 14px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-weight:700;
+    font-size:0.95rem;
+    letter-spacing:0.3px;
+    transition:background 0.2s ease;
+  }
+  .subject-banner.tec{background:var(--tec-grad);}
+  .subject-banner.art{background:var(--art-grad);}
+  .subject-banner .emoji{font-size:1.15rem;}
+
+  .file-attach-box{
+    border:1px dashed var(--line);
+    border-radius:4px;
+    padding:10px;
+    margin-top:6px;
+    background:var(--paper-alt);
+  }
+  .file-attach-box .file-name{
+    font-size:0.85rem;
+    color:var(--ink);
+    word-break:break-all;
+  }
+  .file-attach-box .file-name.empty{color:var(--ink-soft); font-style:italic;}
+  a.file-download{
+    display:inline-block;
+    background:#fff;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    padding:7px 12px;
+    border-radius:4px;
+    font-size:0.85rem;
+    text-decoration:none;
+    margin:6px 6px 0 0;
+  }
+  a.file-download:before{content:"⬇ ";}
+
+  .tag.g9{background:var(--g9-soft); color:var(--g9);}
+  .tag.g10{background:var(--g10-soft); color:var(--g10);}
+  .tag.g11{background:var(--g11-soft); color:var(--g11);}
+
+  .grade-filter{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;}
+  .grade-filter button{
+    background:#fff; border:1px solid var(--line); color:var(--ink-soft);
+    padding:6px 12px; border-radius:16px; font-size:0.82rem; cursor:pointer;
+  }
+  .grade-filter button.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+  label{
+    display:block;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    margin:10px 0 4px 0;
+  }
+  label:first-child{margin-top:0;}
+  input[type=text], input[type=date], input[type=number], input[type=email], input[type=password], textarea, select{
+    width:100%;
+    padding:9px 10px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-size:0.95rem;
+    font-family:inherit;
+    background:var(--paper-alt);
+    color:var(--ink);
+  }
+  textarea{min-height:80px; resize:vertical;}
+  input:focus, textarea:focus, select:focus, button:focus{
+    outline:2px solid var(--tec);
+    outline-offset:1px;
+  }
+
+  .area-pick{display:flex; gap:8px;}
+  .area-pick label{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:9px;
+    margin:0;
+    cursor:pointer;
+    font-size:0.88rem;
+    color:var(--ink);
+  }
+  .area-pick input{width:auto;}
+  .area-pick label.tec-l{border-left:4px solid var(--tec);}
+  .area-pick label.art-l{border-left:4px solid var(--art);}
+
+  .criteria-row{display:flex; gap:6px; margin-bottom:6px;}
+  .criteria-row input:first-child{flex:3;}
+  .criteria-row input:last-child{flex:1;}
+  .criteria-row button{flex:0 0 auto;}
+
+  button.btn{
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    padding:10px 16px;
+    border-radius:4px;
+    font-size:0.92rem;
+    cursor:pointer;
+    margin-top:10px;
+    margin-right:6px;
+  }
+  button.btn.secondary{background:#fff; color:var(--ink); border:1px solid var(--ink);}
+  button.btn.tec{background:var(--tec);}
+  button.btn.art{background:var(--art);}
+  button.btn.small{padding:6px 10px; font-size:0.8rem; margin-top:4px;}
+  button.btn.wa{background:#3E7C4A;}
+  button.btn:disabled{opacity:0.45; cursor:not-allowed;}
+  button.link-btn{
+    background:none; border:none; color:var(--tec); text-decoration:underline;
+    cursor:pointer; padding:0; font-size:0.85rem;
+  }
+
+  .tag{
+    display:inline-block;
+    font-size:0.72rem;
+    padding:2px 8px;
+    border-radius:10px;
+    margin-right:6px;
+  }
+  .tag.tec{background:var(--tec-soft); color:var(--tec);}
+  .tag.art{background:var(--art-soft); color:var(--art);}
+  .tag.ok{background:var(--ok-soft); color:var(--ok);}
+  .tag.pending{background:var(--alert-soft); color:var(--alert);}
+
+  .empty{
+    text-align:center;
+    padding:30px 16px;
+    color:var(--ink-soft);
+    border:1px dashed var(--line);
+    border-radius:var(--radius);
+  }
+
+  .share-box{
+    background:var(--paper-alt);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:12px;
+    margin-top:8px;
+  }
+  .code-out{
+    width:100%;
+    min-height:70px;
+    font-family:monospace;
+    font-size:0.75rem;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:8px;
+    word-break:break-all;
+  }
+  .hint{
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    background:var(--paper-alt);
+    border-left:3px solid var(--tec);
+    padding:8px 10px;
+    border-radius:4px;
+    margin:10px 0;
+  }
+  .hint.warn{border-left-color:var(--alert);}
+  img.preview{max-width:100%; border-radius:4px; margin-top:8px; border:1px solid var(--line);}
+
+  .row{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .toolbar{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;}
+
+  table.grades{width:100%; border-collapse:collapse; font-size:0.85rem;}
+  table.grades th, table.grades td{border-bottom:1px solid var(--line); text-align:left; padding:6px 4px;}
+
+  footer.appfoot{
+    text-align:center;
+    padding:14px;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+  }
+
+  .login-wrap{padding:30px 16px; max-width:360px; margin:0 auto;}
+  .login-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:20px;}
+  .error-msg{color:var(--alert); font-size:0.85rem; margin-top:8px;}
+  .status-badge{
+    display:inline-flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--ink-soft);
+    padding:4px 0;
+  }
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--ink-soft); display:inline-block;}
+  .dot.on{background:var(--ok);}
+  .dot.off{background:var(--alert);}
+  .teacher-bar{display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:var(--paper-alt); border-bottom:1px solid var(--line); font-size:0.82rem;}
+  .spinner-wrap{text-align:center; padding:40px 16px; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><h1>Taller Digital</h1><span>tareas de tecnología y artística</span></div>
+  <div class="role-tabs">
+    <button class="role-tab active" data-role="docente">Soy docente</button>
+    <button class="role-tab" data-role="estudiante">Soy estudiante</button>
+  </div>
+</header>
+
+<div id="conn-status" class="status-badge" style="padding:8px 14px;"><span class="dot off" id="conn-dot"></span><span id="conn-text">Conectando...</span></div>
+
+<!-- DOCENTE -->
+<div id="view-docente" class="role-view">
+
+  <!-- Login gate -->
+  <div id="teacher-login-gate" class="login-wrap">
+    <div class="login-card">
+      <h2>Acceso docente</h2>
+      <p><small>Inicia sesión con la cuenta que creaste para este taller.</small></p>
+      <label>Correo</label>
+      <input type="email" id="login-email" placeholder="tucorreo@ejemplo.com">
+      <label>Contraseña</label>
+      <input type="password" id="login-password" placeholder="Tu contraseña">
+      <button class="btn tec" id="login-btn" style="width:100%;">Iniciar sesión</button>
+      <button class="link-btn" id="forgot-pass-btn" style="margin-top:10px;">Olvidé mi contraseña</button>
+      <div class="error-msg" id="login-error"></div>
+    </div>
+  </div>
+
+  <div id="teacher-app" style="display:none;">
+    <div class="teacher-bar">
+      <span id="teacher-email-label"></span>
+      <button class="link-btn" id="logout-btn">Cerrar sesión</button>
+    </div>
+    <nav class="subnav">
+      <button class="sub active" data-panel="d-crear">Crear tarea</button>
+      <button class="sub" data-panel="d-mistareas">Mis tareas</button>
+      <button class="sub" data-panel="d-entregas">Entregas y calificación</button>
+      <button class="sub" data-panel="d-resumen">Resumen</button>
+    </nav>
+    <main>
+
+      <section id="d-crear" class="panel active">
+        <div class="hint">Comparte el enlace de este sitio con tus estudiantes (botón abajo). En cuanto crees una tarea, aparecerá automáticamente en su pantalla — no necesitas enviarles nada más.</div>
+        <button class="btn secondary small" id="copy-link-btn">Copiar enlace para estudiantes</button>
+        <div class="card">
+          <div class="subject-banner tec" id="t-banner"><span class="emoji">⚙️</span> <span id="t-banner-label">Tecnología</span></div>
+          <h2>Nueva tarea</h2>
+          <label>Título de la tarea</label>
+          <input type="text" id="t-title" placeholder="Ej: Circuito con LED y sensor">
+          <label>Área</label>
+          <div class="area-pick">
+            <label class="tec-l"><input type="radio" name="t-area" value="tecnologia" checked> Tecnología</label>
+            <label class="art-l"><input type="radio" name="t-area" value="artistica"> Artística</label>
+          </div>
+          <label>Grado</label>
+          <select id="t-grade">
+            <option value="9">9°</option>
+            <option value="10">10°</option>
+            <option value="11">11°</option>
+          </select>
+          <label>Instrucciones para el estudiante</label>
+          <textarea id="t-desc" placeholder="Explica qué debe hacer el estudiante y cómo debe entregarlo"></textarea>
+          <label>Fecha de entrega</label>
+          <input type="date" id="t-due">
+          <label>Archivo para el estudiante (opcional)</label>
+          <div class="file-attach-box">
+            <button type="button" class="btn secondary small" id="t-file-btn">Adjuntar archivo</button>
+            <input type="file" id="t-file-input" style="display:none">
+            <button type="button" class="btn secondary small" id="t-file-remove" style="display:none;">Quitar archivo</button>
+            <div class="file-name empty" id="t-file-name">Sin archivo adjunto</div>
+          </div>
+          <label>Criterios de evaluación (opcional)</label>
+          <div id="criteria-list"></div>
+          <button type="button" class="btn secondary small" id="add-criteria">+ Agregar criterio</button>
+          <div>
+            <button class="btn tec" id="create-task">Crear tarea</button>
+          </div>
+        </div>
+        <div id="new-task-msg"></div>
+      </section>
+
+      <section id="d-mistareas" class="panel">
+        <h2>Mis tareas</h2>
+        <div class="grade-filter" id="d-grade-filter">
+          <button class="active" data-grade="todos">Todos</button>
+          <button data-grade="9">9°</button>
+          <button data-grade="10">10°</button>
+          <button data-grade="11">11°</button>
+        </div>
+        <div id="tasks-list"></div>
+      </section>
+
+      <section id="d-entregas" class="panel">
+        <h2>Entregas y calificación</h2>
+        <label>Filtrar por grado</label>
+        <select id="d-entregas-grade-filter">
+          <option value="todos">Todos los grados</option>
+          <option value="9">9°</option>
+          <option value="10">10°</option>
+          <option value="11">11°</option>
+        </select>
+        <label>Selecciona una tarea</label>
+        <select id="task-select"></select>
+        <div id="submissions-list"></div>
+      </section>
+
+      <section id="d-resumen" class="panel">
+        <h2>Resumen de calificaciones</h2>
+        <div id="grades-summary"></div>
+        <button class="btn secondary small" id="export-csv">Descargar resumen (CSV)</button>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ESTUDIANTE -->
+<div id="view-estudiante" class="role-view" style="display:none;">
+  <nav class="subnav">
+    <button class="sub active" data-panel="e-recibir">Tareas</button>
+    <button class="sub" data-panel="e-entregar">Mi entrega</button>
+    <button class="sub" data-panel="e-notas">Mis calificaciones</button>
+  </nav>
+  <main>
+
+    <section id="e-recibir" class="panel active">
+      <h2>Tareas asignadas</h2>
+      <label>Tu grado</label>
+      <select id="s-grade-filter">
+        <option value="todos">Todos los grados</option>
+        <option value="9">9°</option>
+        <option value="10">10°</option>
+        <option value="11">11°</option>
+      </select>
+      <div id="s-tasks-list"></div>
+    </section>
+
+    <section id="e-entregar" class="panel">
+      <h2>Entregar una tarea</h2>
+      <label>Elige la tarea a entregar</label>
+      <select id="s-task-select"></select>
+      <div id="s-task-detail"></div>
+      <div id="s-submit-form" style="display:none;">
+        <label>Tu nombre completo</label>
+        <input type="text" id="s-name" placeholder="Nombre y apellido">
+        <label>Tu respuesta / desarrollo de la tarea</label>
+        <textarea id="s-answer" placeholder="Escribe aquí tu trabajo, o pega el enlace de un video/documento si aplica"></textarea>
+        <label>Foto de tu trabajo (opcional, útil para tareas artísticas)</label>
+        <input type="file" id="s-image" accept="image/*">
+        <div id="s-image-preview"></div>
+        <label>Archivo de tu trabajo terminado (opcional)</label>
+        <div class="file-attach-box">
+          <button type="button" class="btn secondary small" id="s-file-btn">Adjuntar archivo</button>
+          <input type="file" id="s-file-input" style="display:none">
+          <button type="button" class="btn secondary small" id="s-file-remove" style="display:none;">Quitar archivo</button>
+          <div class="file-name empty" id="s-file-name">Sin archivo adjunto</div>
+        </div>
+        <button class="btn tec" id="s-generate-submission">Enviar mi entrega</button>
+      </div>
+      <div id="submission-msg"></div>
+    </section>
+
+    <section id="e-notas" class="panel">
+      <h2>Mis calificaciones</h2>
+      <div class="hint">Escribe tu nombre exactamente como lo usaste al entregar, para ver tus notas.</div>
+      <label>Tu nombre completo</label>
+      <input type="text" id="g-name-filter" placeholder="Nombre y apellido">
+      <button class="btn tec small" id="g-search-btn">Buscar mis calificaciones</button>
+      <div id="grades-list"></div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="appfoot">Los datos se guardan en la nube (Firebase) en tiempo real — ya no dependen de este dispositivo ni del navegador.</footer>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============================================================
+  // 1) PEGA AQUÍ LA CONFIGURACIÓN DE TU PROYECTO FIREBASE
+  //    (la obtienes en la Consola de Firebase > Configuración del proyecto > tus apps > SDK setup)
+  // ============================================================
+  var firebaseConfig = {
+    apiKey: "AIzaSyB64TImEqLws_Tw8Yh6Er3LmF8F6_5G2sc",
+    authDomain: "taller-digital-1784a.firebaseapp.com",
+    projectId: "taller-digital-1784a",
+    storageBucket: "taller-digital-1784a.firebasestorage.app",
+    messagingSenderId: "941107306410",
+    appId: "1:941107306410:web:0a4196f6f7be01ce89d5d3"
+  };
+
+  // ============================================================
+  // 2) ESCRIBE AQUÍ EL/LOS CORREOS QUE PUEDEN ENTRAR COMO DOCENTE
+  //    (deben coincidir con las cuentas que crees en Firebase Authentication)
+  // ============================================================
+  var TEACHER_EMAILS = ["xander281978@gmail.com"];
+
+  // Los archivos se guardan directamente dentro de la base de datos (sin Firebase Storage,
+  // para no requerir tarjeta de crédito), así que deben ser pequeños.
+  var MAX_FILE_SIZE = 700 * 1024; // 700KB por archivo
+
+  var app = firebase.initializeApp(firebaseConfig);
+  var auth = firebase.auth();
+  var db = firebase.firestore();
+
+  var state = { tasks: [], submissions: [], grades: [] };
+  var pendingImage = null; // {dataUrl}
+  var pendingTaskFile = null; // {name, mime, dataUrl}
+  var pendingStudentFile = null; // {name, mime, dataUrl}
+  var isTeacher = false;
+  var submissionsUnsub = null;
+
+  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+  function esc(s){ var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+  function slug(s){ return (s||"tarea").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"").slice(0,40) || "tarea"; }
+  function areaLabel(a){ return a === "artistica" ? "Artística" : "Tecnología"; }
+  function gradeLabel(g){ return g ? g+"°" : "—"; }
+
+  function setConn(ok, text){
+    document.getElementById("conn-dot").className = "dot " + (ok ? "on" : "off");
+    document.getElementById("conn-text").textContent = text;
+  }
+
+  // ---------- role & tab switching ----------
+  document.querySelectorAll(".role-tab").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll(".role-tab").forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      var role = btn.getAttribute("data-role");
+      document.getElementById("view-docente").style.display = role === "docente" ? "" : "none";
+      document.getElementById("view-estudiante").style.display = role === "estudiante" ? "" : "none";
+    });
+  });
+
+  document.querySelectorAll("nav.subnav").forEach(function(nav){
+    nav.querySelectorAll("button.sub").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        nav.querySelectorAll("button.sub").forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active");
+        var panelId = btn.getAttribute("data-panel");
+        var container = nav.parentElement;
+        container.querySelectorAll(".panel").forEach(function(p){ p.classList.remove("active"); });
+        document.getElementById(panelId).classList.add("active");
+        refreshAll();
+      });
+    });
+  });
+
+  // ---------- AUTH ----------
+  document.getElementById("login-btn").addEventListener("click", function(){
+    var email = document.getElementById("login-email").value.trim();
+    var pass = document.getElementById("login-password").value;
+    var errEl = document.getElementById("login-error");
+    errEl.textContent = "";
+    if(!email || !pass){ errEl.textContent = "Escribe tu correo y contraseña."; return; }
+    auth.signInWithEmailAndPassword(email, pass).catch(function(err){
+      errEl.textContent = "No se pudo iniciar sesión: " + friendlyAuthError(err);
+    });
+  });
+
+  document.getElementById("forgot-pass-btn").addEventListener("click", function(){
+    var email = document.getElementById("login-email").value.trim();
+    var errEl = document.getElementById("login-error");
+    if(!email){ errEl.textContent = "Escribe tu correo arriba y vuelve a tocar 'Olvidé mi contraseña'."; return; }
+    auth.sendPasswordResetEmail(email).then(function(){
+      errEl.style.color = "var(--ok)";
+      errEl.textContent = "Te enviamos un correo para restablecer tu contraseña.";
+    }).catch(function(err){
+      errEl.style.color = "var(--alert)";
+      errEl.textContent = "No se pudo enviar el correo: " + friendlyAuthError(err);
+    });
+  });
+
+  document.getElementById("logout-btn").addEventListener("click", function(){
+    auth.signOut();
+  });
+
+  function friendlyAuthError(err){
+    var code = err && err.code || "";
+    if(code.indexOf("wrong-password") !== -1 || code.indexOf("invalid-credential") !== -1) return "correo o contraseña incorrectos.";
+    if(code.indexOf("user-not-found") !== -1) return "no existe una cuenta con ese correo.";
+    if(code.indexOf("too-many-requests") !== -1) return "demasiados intentos, espera un momento.";
+    return err && err.message ? err.message : "intenta de nuevo.";
+  }
+
+  auth.onAuthStateChanged(function(user){
+    var gate = document.getElementById("teacher-login-gate");
+    var app_ = document.getElementById("teacher-app");
+    if(user && TEACHER_EMAILS.indexOf(user.email) !== -1){
+      isTeacher = true;
+      gate.style.display = "none";
+      app_.style.display = "";
+      document.getElementById("teacher-email-label").textContent = "Conectado: " + user.email;
+      listenSubmissions();
+    } else {
+      if(user && !user.isAnonymous){
+        // logged in but not an allowed teacher email
+        document.getElementById("login-error").textContent = "Esta cuenta no tiene permisos de docente.";
+        auth.signOut();
+      }
+      isTeacher = false;
+      gate.style.display = "";
+      app_.style.display = "none";
+      if(submissionsUnsub){ submissionsUnsub(); submissionsUnsub = null; }
+      state.submissions = [];
+    }
+    refreshAll();
+  });
+
+  // ---------- copy link ----------
+  document.getElementById("copy-link-btn").addEventListener("click", function(){
+    var url = window.location.href.split("#")[0];
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(url).then(function(){ alert("Enlace copiado: " + url); });
+    } else {
+      prompt("Copia este enlace:", url);
+    }
+  });
+
+  // ---------- live data: tasks (public) & grades (public) ----------
+  setConn(false, "Conectando...");
+  db.collection("tasks").orderBy("createdAt", "desc").onSnapshot(function(snap){
+    state.tasks = snap.docs.map(function(d){ var t = d.data(); t.id = d.id; return t; });
+    setConn(true, "Conectado");
+    refreshAll();
+  }, function(err){
+    setConn(false, "Sin conexión: " + err.message);
+  });
+
+  db.collection("grades").onSnapshot(function(snap){
+    state.grades = snap.docs.map(function(d){ var g = d.data(); g.id = d.id; return g; });
+    refreshAll();
+  });
+
+  function listenSubmissions(){
+    if(submissionsUnsub) submissionsUnsub();
+    submissionsUnsub = db.collection("submissions").orderBy("submittedAt", "desc").onSnapshot(function(snap){
+      state.submissions = snap.docs.map(function(d){ var s = d.data(); s.id = d.id; return s; });
+      refreshAll();
+    });
+  }
+
+  // ---------- file helpers ----------
+  // Los archivos se guardan como texto (base64) dentro del propio documento de Firestore,
+  // por eso deben ser pequeños (ver MAX_FILE_SIZE).
+  function fileAttachHtml(fileObj, label){
+    if(!fileObj || !fileObj.dataUrl) return "";
+    return '<a class="file-download" download="'+esc(fileObj.name)+'" href="'+fileObj.dataUrl+'">'+esc(label||fileObj.name)+'</a>';
+  }
+
+  function readFileAsBase64(file, onDone, onError){
+    if(file.size > MAX_FILE_SIZE){
+      onError({message:"El archivo es muy pesado (máx. 700KB). Elige uno más liviano o comprímelo."});
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(){
+      onDone({ name:file.name, mime:file.type || "application/octet-stream", dataUrl:reader.result });
+    };
+    reader.onerror = function(){ onError({message:"No se pudo leer el archivo."}); };
+    reader.readAsDataURL(file);
+  }
+
+  // ---------- subject banner (live preview) ----------
+  document.querySelectorAll('input[name="t-area"]').forEach(function(radio){
+    radio.addEventListener("change", function(){
+      var banner = document.getElementById("t-banner");
+      var label = document.getElementById("t-banner-label");
+      var isArt = document.querySelector('input[name="t-area"]:checked').value === "artistica";
+      banner.className = "subject-banner " + (isArt ? "art" : "tec");
+      banner.querySelector(".emoji").textContent = isArt ? "🎨" : "⚙️";
+      label.textContent = isArt ? "Artística" : "Tecnología";
+    });
+  });
+
+  document.getElementById("t-file-btn").addEventListener("click", function(){ document.getElementById("t-file-input").click(); });
+  document.getElementById("t-file-input").addEventListener("change", function(e){
+    var file = e.target.files[0]; if(!file) return;
+    readFileAsBase64(file, function(att){
+      pendingTaskFile = att;
+      document.getElementById("t-file-name").textContent = att.name;
+      document.getElementById("t-file-name").classList.remove("empty");
+      document.getElementById("t-file-remove").style.display = "";
+    }, function(err){
+      alert(err.message);
+      e.target.value = "";
+    });
+  });
+  document.getElementById("t-file-remove").addEventListener("click", function(){
+    pendingTaskFile = null;
+    document.getElementById("t-file-input").value = "";
+    document.getElementById("t-file-name").textContent = "Sin archivo adjunto";
+    document.getElementById("t-file-name").classList.add("empty");
+    document.getElementById("t-file-remove").style.display = "none";
+  });
+
+  // ---------- criteria rows ----------
+  function addCriteriaRow(name, points){
+    var wrap = document.getElementById("criteria-list");
+    var row = document.createElement("div");
+    row.className = "criteria-row";
+    row.innerHTML = '<input type="text" placeholder="Criterio (ej: Creatividad)" class="crit-name" value="'+(name||"")+'">'+
+      '<input type="number" placeholder="Pts" class="crit-pts" value="'+(points||"")+'">'+
+      '<button type="button" class="btn secondary small crit-remove">✕</button>';
+    row.querySelector(".crit-remove").addEventListener("click", function(){ row.remove(); });
+    wrap.appendChild(row);
+  }
+  document.getElementById("add-criteria").addEventListener("click", function(){ addCriteriaRow(); });
+
+  // ---------- create task ----------
+  document.getElementById("create-task").addEventListener("click", function(){
+    if(!isTeacher){ alert("Debes iniciar sesión como docente."); return; }
+    var title = document.getElementById("t-title").value.trim();
+    if(!title){ alert("Escribe un título para la tarea."); return; }
+    var area = document.querySelector('input[name="t-area"]:checked').value;
+    var grade = document.getElementById("t-grade").value.trim();
+    var desc = document.getElementById("t-desc").value.trim();
+    var due = document.getElementById("t-due").value;
+    var criteria = [];
+    document.querySelectorAll("#criteria-list .criteria-row").forEach(function(row){
+      var n = row.querySelector(".crit-name").value.trim();
+      var p = row.querySelector(".crit-pts").value.trim();
+      if(n) criteria.push({item:n, points:p || ""});
+    });
+
+    var btn = document.getElementById("create-task");
+    btn.disabled = true; btn.textContent = "Creando...";
+
+    function saveTask(fileInfo){
+      var taskData = {
+        title:title, area:area, grade:grade, description:desc, dueDate:due,
+        criteria:criteria, file: fileInfo || null,
+        teacherEmail: auth.currentUser.email,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      db.collection("tasks").add(taskData).then(function(){
+        document.getElementById("t-title").value = "";
+        document.getElementById("t-grade").value = "9";
+        document.getElementById("t-desc").value = "";
+        document.getElementById("t-due").value = "";
+        document.getElementById("criteria-list").innerHTML = "";
+        document.getElementById("t-file-remove").click();
+        document.getElementById("new-task-msg").innerHTML = '<div class="hint">Tarea creada y visible para los estudiantes.</div>';
+        btn.disabled = false; btn.textContent = "Crear tarea";
+      }).catch(function(err){
+        alert("No se pudo crear la tarea: " + err.message);
+        btn.disabled = false; btn.textContent = "Crear tarea";
+      });
+    }
+
+    saveTask(pendingTaskFile || null);
+  });
+
+  // ---------- render tasks list (docente) ----------
+  var teacherGradeFilter = "todos";
+  document.querySelectorAll('#d-grade-filter button').forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll('#d-grade-filter button').forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      teacherGradeFilter = btn.getAttribute("data-grade");
+      renderTasksList();
+    });
+  });
+
+  function renderTasksList(){
+    var wrap = document.getElementById("tasks-list");
+    var list = state.tasks.filter(function(t){ return teacherGradeFilter === "todos" || t.grade === teacherGradeFilter; });
+    if(list.length === 0){ wrap.innerHTML = '<div class="empty">Aún no has creado tareas para este filtro.</div>'; return; }
+    wrap.innerHTML = "";
+    list.forEach(function(task){
+      var count = state.submissions.filter(function(s){ return s.taskId === task.id; }).length;
+      var div = document.createElement("div");
+      div.className = "card " + (task.area === "artistica" ? "art" : "tec");
+      div.innerHTML = '<div class="subject-banner '+(task.area === "artistica" ? "art" : "tec")+'"><span class="emoji">'+(task.area === "artistica" ? "🎨" : "⚙️")+'</span> '+areaLabel(task.area)+'</div>'+
+        (task.grade ? '<span class="tag g'+esc(task.grade)+'">Grado '+gradeLabel(task.grade)+'</span>' : '')+
+        '<h3>'+esc(task.title)+'</h3>'+
+        (task.dueDate ? '<small>Entrega: '+esc(task.dueDate)+'</small><br>' : '')+
+        '<p>'+esc(task.description)+'</p>'+
+        fileAttachHtml(task.file, "Descargar archivo de la tarea")+
+        '<br><small>'+count+' entrega(s) recibida(s)</small><br>'+
+        '<button class="btn secondary small" data-act="delete">Eliminar tarea</button>';
+      div.querySelector('[data-act="delete"]').addEventListener("click", function(){
+        if(confirm('¿Eliminar la tarea "'+task.title+'"? Esta acción no se puede deshacer.')){
+          db.collection("tasks").doc(task.id).delete();
+        }
+      });
+      wrap.appendChild(div);
+    });
+  }
+
+  // ---------- task select dropdowns ----------
+  function fillTaskSelect(selectEl, list){
+    var prev = selectEl.value;
+    selectEl.innerHTML = "";
+    if(list.length === 0){
+      var opt = document.createElement("option");
+      opt.textContent = "— no hay tareas —"; selectEl.appendChild(opt);
+      return;
+    }
+    list.forEach(function(t){
+      var opt = document.createElement("option");
+      opt.value = t.id; opt.textContent = t.title + " ("+areaLabel(t.area)+(t.grade ? " · Grado "+gradeLabel(t.grade) : "")+")";
+      selectEl.appendChild(opt);
+    });
+    if(list.some(function(t){return t.id===prev;})) selectEl.value = prev;
+  }
+
+  document.getElementById("d-entregas-grade-filter").addEventListener("change", function(){
+    var val = this.value;
+    var filtered = val === "todos" ? state.tasks : state.tasks.filter(function(t){ return t.grade === val; });
+    fillTaskSelect(document.getElementById("task-select"), filtered);
+    renderSubmissionsForSelectedTask();
+  });
+
+  // ---------- entregas y calificación ----------
+  document.getElementById("task-select").addEventListener("change", renderSubmissionsForSelectedTask);
+
+  function renderSubmissionsForSelectedTask(){
+    var sel = document.getElementById("task-select");
+    var taskId = sel.value;
+    var wrap = document.getElementById("submissions-list");
+    var subs = state.submissions.filter(function(s){ return s.taskId === taskId; });
+    if(subs.length === 0){ wrap.innerHTML = '<div class="empty">No hay entregas todavía para esta tarea.</div>'; return; }
+    wrap.innerHTML = "";
+    subs.forEach(function(sub){
+      var existingGrade = state.grades.find(function(g){ return g.submissionId === sub.id; });
+      var div = document.createElement("div");
+      div.className = "card";
+      var submittedDate = sub.submittedAt && sub.submittedAt.toDate ? sub.submittedAt.toDate().toLocaleString() : "";
+      div.innerHTML = '<h3>'+esc(sub.studentName)+'</h3>'+
+        '<small>Enviado: '+esc(submittedDate)+'</small>'+
+        (existingGrade ? ' <span class="tag ok">Calificado: '+esc(existingGrade.grade)+'</span>' : ' <span class="tag pending">Sin calificar</span>')+
+        '<p>'+esc(sub.answerText)+'</p>'+
+        (sub.image && sub.image.dataUrl ? '<img class="preview" src="'+sub.image.dataUrl+'">' : '')+
+        fileAttachHtml(sub.file, "Descargar archivo entregado")+'<br>'+
+        '<label>Nota</label><input type="text" class="g-grade" value="'+(existingGrade?esc(existingGrade.grade):"")+'" placeholder="Ej: 4.5 / 10 / Excelente">'+
+        '<label>Retroalimentación</label><textarea class="g-feedback" placeholder="Comentario para el estudiante">'+(existingGrade?esc(existingGrade.feedback):"")+'</textarea>'+
+        '<button class="btn tec small" data-act="save">Guardar calificación</button>';
+      div.querySelector('[data-act="save"]').addEventListener("click", function(btnEvt){
+        var gradeVal = div.querySelector(".g-grade").value.trim();
+        var feedback = div.querySelector(".g-feedback").value.trim();
+        if(!gradeVal){ alert("Escribe una nota."); return; }
+        var record = {
+          submissionId: sub.id, taskId: sub.taskId,
+          taskTitle: (state.tasks.find(function(t){return t.id===sub.taskId;})||{}).title || "",
+          studentName: sub.studentName, grade: gradeVal, feedback: feedback,
+          gradedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        db.collection("grades").doc(sub.id).set(record).then(function(){
+          alert("Calificación guardada.");
+        }).catch(function(err){ alert("No se pudo guardar: " + err.message); });
+      });
+      wrap.appendChild(div);
+    });
+  }
+
+  // ---------- resumen ----------
+  function renderGradesSummary(){
+    var wrap = document.getElementById("grades-summary");
+    if(state.grades.length === 0){ wrap.innerHTML = '<div class="empty">Aún no has calificado entregas.</div>'; return; }
+    var html = '<table class="grades"><tr><th>Estudiante</th><th>Tarea</th><th>Nota</th></tr>';
+    state.grades.forEach(function(g){
+      html += '<tr><td>'+esc(g.studentName)+'</td><td>'+esc(g.taskTitle)+'</td><td>'+esc(g.grade)+'</td></tr>';
+    });
+    html += '</table>';
+    wrap.innerHTML = html;
+  }
+
+  document.getElementById("export-csv").addEventListener("click", function(){
+    var rows = [["Estudiante","Tarea","Nota","Retroalimentacion"]];
+    state.grades.forEach(function(g){ rows.push([g.studentName, g.taskTitle, g.grade, g.feedback||""]); });
+    var csv = rows.map(function(r){ return r.map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(","); }).join("\n");
+    var blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a"); a.href=url; a.download="resumen_calificaciones.csv";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  });
+
+  // ================= ESTUDIANTE =================
+  document.getElementById("s-grade-filter").addEventListener("change", function(){ refreshAll(); });
+
+  function renderStudentTasksList(){
+    var wrap = document.getElementById("s-tasks-list");
+    var gradeVal = document.getElementById("s-grade-filter").value;
+    var list = state.tasks.filter(function(t){ return gradeVal === "todos" || t.grade === gradeVal; });
+    if(list.length === 0){ wrap.innerHTML = '<div class="empty">Todavía no hay tareas para este grado.</div>'; return; }
+    wrap.innerHTML = "";
+    list.forEach(function(task){
+      var div = document.createElement("div");
+      div.className = "card " + (task.area === "artistica" ? "art" : "tec");
+      div.innerHTML = '<div class="subject-banner '+(task.area === "artistica" ? "art" : "tec")+'"><span class="emoji">'+(task.area === "artistica" ? "🎨" : "⚙️")+'</span> '+areaLabel(task.area)+'</div>'+
+        (task.grade ? '<span class="tag g'+esc(task.grade)+'">Grado '+gradeLabel(task.grade)+'</span>' : '')+
+        '<h3>'+esc(task.title)+'</h3>'+
+        (task.dueDate ? '<small>Entrega: '+esc(task.dueDate)+'</small><br>' : '')+
+        '<p>'+esc(task.description)+'</p>'+
+        (task.criteria && task.criteria.length ? ('<small>Se evaluará: '+task.criteria.map(function(c){return esc(c.item)+(c.points?" ("+esc(c.points)+" pts)":"");}).join(", ")+'</small><br>') : '')+
+        fileAttachHtml(task.file, "Descargar archivo de la tarea");
+      wrap.appendChild(div);
+    });
+  }
+
+  document.getElementById("s-task-select").addEventListener("change", renderStudentTaskDetail);
+  function renderStudentTaskDetail(){
+    var sel = document.getElementById("s-task-select");
+    var task = state.tasks.find(function(t){ return t.id === sel.value; });
+    var detail = document.getElementById("s-task-detail");
+    var form = document.getElementById("s-submit-form");
+    if(!task){ detail.innerHTML = ""; form.style.display = "none"; return; }
+    detail.innerHTML = '<div class="card '+(task.area==="artistica"?"art":"tec")+'">'+
+      '<div class="subject-banner '+(task.area==="artistica"?"art":"tec")+'"><span class="emoji">'+(task.area==="artistica"?"🎨":"⚙️")+'</span> '+areaLabel(task.area)+'</div>'+
+      (task.grade ? '<span class="tag g'+esc(task.grade)+'">Grado '+gradeLabel(task.grade)+'</span>' : '')+
+      '<h3>'+esc(task.title)+'</h3><p>'+esc(task.description)+'</p>'+
+      fileAttachHtml(task.file, "Descargar archivo de la tarea")+
+      '</div>';
+    form.style.display = "";
+  }
+
+  document.getElementById("s-image").addEventListener("change", function(e){
+    var file = e.target.files[0];
+    var preview = document.getElementById("s-image-preview");
+    if(!file){ pendingImage = null; preview.innerHTML=""; return; }
+    var reader = new FileReader();
+    reader.onload = function(){
+      var img = new Image();
+      img.onload = function(){
+        var maxW = 700;
+        var scale = Math.min(1, maxW / img.width);
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width * scale; canvas.height = img.height * scale;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // Prueba varias calidades hasta que quepa en el límite de tamaño
+        var qualities = [0.6, 0.4, 0.25];
+        var dataUrl = canvas.toDataURL("image/jpeg", qualities[0]);
+        for(var i=1; i<qualities.length && dataUrl.length > MAX_FILE_SIZE*1.37; i++){
+          dataUrl = canvas.toDataURL("image/jpeg", qualities[i]);
+        }
+        if(dataUrl.length > MAX_FILE_SIZE*1.37){
+          alert("La foto sigue siendo muy pesada incluso comprimida. Prueba con otra foto o toma una con menor resolución.");
+          preview.innerHTML = ""; pendingImage = null; e.target.value = "";
+          return;
+        }
+        pendingImage = { dataUrl: dataUrl };
+        preview.innerHTML = '<img class="preview" src="'+dataUrl+'">';
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById("s-file-btn").addEventListener("click", function(){ document.getElementById("s-file-input").click(); });
+  document.getElementById("s-file-input").addEventListener("change", function(e){
+    var file = e.target.files[0]; if(!file) return;
+    readFileAsBase64(file, function(att){
+      pendingStudentFile = att;
+      document.getElementById("s-file-name").textContent = att.name;
+      document.getElementById("s-file-name").classList.remove("empty");
+      document.getElementById("s-file-remove").style.display = "";
+    }, function(err){
+      alert(err.message);
+      e.target.value = "";
+    });
+  });
+  document.getElementById("s-file-remove").addEventListener("click", function(){
+    pendingStudentFile = null;
+    document.getElementById("s-file-input").value = "";
+    document.getElementById("s-file-name").textContent = "Sin archivo adjunto";
+    document.getElementById("s-file-name").classList.add("empty");
+    document.getElementById("s-file-remove").style.display = "none";
+  });
+
+  document.getElementById("s-generate-submission").addEventListener("click", function(){
+    var sel = document.getElementById("s-task-select");
+    var task = state.tasks.find(function(t){ return t.id === sel.value; });
+    if(!task){ alert("Elige una tarea."); return; }
+    var name = document.getElementById("s-name").value.trim();
+    var answer = document.getElementById("s-answer").value.trim();
+    if(!name){ alert("Escribe tu nombre."); return; }
+    if(!answer && !pendingImage){ alert("Escribe tu respuesta o adjunta una foto."); return; }
+
+    var btn = document.getElementById("s-generate-submission");
+    btn.disabled = true; btn.textContent = "Enviando...";
+
+    var subId = uid();
+
+    var imageInfo = pendingImage ? { dataUrl: pendingImage.dataUrl } : null;
+    var fileInfo = pendingStudentFile || null;
+
+    // Firestore no acepta documentos de más de 1MB en total: revisamos antes de intentar guardar.
+    var totalEstimate = (answer||"").length + (imageInfo ? imageInfo.dataUrl.length : 0) + (fileInfo ? fileInfo.dataUrl.length : 0);
+    if(totalEstimate > 950000){
+      alert("La foto y/o el archivo adjuntos son muy pesados juntos. Intenta adjuntar solo uno de los dos, o usa archivos más livianos.");
+      btn.disabled = false; btn.textContent = "Enviar mi entrega";
+      return;
+    }
+
+    var submission = {
+      taskId: task.id, taskTitle: task.title, studentName: name,
+      answerText: answer, image: imageInfo, file: fileInfo,
+      submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    db.collection("submissions").doc(subId).set(submission).then(function(){
+      document.getElementById("s-name").value=""; document.getElementById("s-answer").value="";
+      document.getElementById("s-image").value=""; document.getElementById("s-image-preview").innerHTML="";
+      pendingImage = null;
+      document.getElementById("s-file-remove").click();
+      document.getElementById("submission-msg").innerHTML = '<div class="hint">¡Entrega enviada! Tu docente la verá en la sección de Entregas.</div>';
+      btn.disabled = false; btn.textContent = "Enviar mi entrega";
+    }).catch(function(err){
+      alert("No se pudo enviar la entrega: " + err.message);
+      btn.disabled = false; btn.textContent = "Enviar mi entrega";
+    });
+  });
+
+  // ---------- mis calificaciones (estudiante) ----------
+  document.getElementById("g-search-btn").addEventListener("click", renderStudentGrades);
+  function renderStudentGrades(){
+    var wrap = document.getElementById("grades-list");
+    var nameFilter = document.getElementById("g-name-filter").value.trim().toLowerCase();
+    if(!nameFilter){ wrap.innerHTML = '<div class="empty">Escribe tu nombre arriba y toca "Buscar".</div>'; return; }
+    var mine = state.grades.filter(function(g){ return (g.studentName||"").trim().toLowerCase() === nameFilter; });
+    if(mine.length === 0){ wrap.innerHTML = '<div class="empty">No encontramos calificaciones con ese nombre todavía.</div>'; return; }
+    wrap.innerHTML = "";
+    mine.forEach(function(g){
+      var div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = '<h3>'+esc(g.taskTitle)+'</h3><span class="tag ok">Nota: '+esc(g.grade)+'</span>'+
+        (g.feedback ? '<p>'+esc(g.feedback)+'</p>' : '');
+      wrap.appendChild(div);
+    });
+  }
+
+  // ---------- refresh everything ----------
+  function refreshAll(){
+    renderTasksList();
+    var dGradeVal = document.getElementById("d-entregas-grade-filter").value;
+    var dFiltered = dGradeVal === "todos" ? state.tasks : state.tasks.filter(function(t){ return t.grade === dGradeVal; });
+    fillTaskSelect(document.getElementById("task-select"), dFiltered);
+    renderSubmissionsForSelectedTask();
+    renderGradesSummary();
+    renderStudentTasksList();
+    var sGradeVal = document.getElementById("s-grade-filter").value;
+    var sFiltered = sGradeVal === "todos" ? state.tasks : state.tasks.filter(function(t){ return t.grade === sGradeVal; });
+    fillTaskSelect(document.getElementById("s-task-select"), sFiltered);
+    renderStudentTaskDetail();
+  }
+
+  addCriteriaRow();
+  refreshAll();
+})();
+</script>
+</body>
+</html>
